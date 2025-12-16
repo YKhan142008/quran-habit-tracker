@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
         reason = 'Invalid email format';
       } else if (result.validators?.typo?.valid === false) {
         reason = 'Possible typo detected';
-        suggestion = result.validators.typo.suggestion || undefined;
+        suggestion = (result.validators?.typo as any)?.suggestion || undefined;
       } else if (result.validators?.disposable?.valid === false) {
         reason = 'Disposable email addresses are not allowed';
       } else if (result.validators?.mx?.valid === false) {
