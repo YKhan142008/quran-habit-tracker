@@ -1,0 +1,51 @@
+﻿generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                    String   @id @default(cuid())
+  email                 String   @unique
+  name                  String?
+  emailNotifications    Boolean  @default(false)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  sessions              Session[]
+  goals                 Goal[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  surah     Int
+  startAyah Int
+  endAyah   Int
+  startPage Int?
+  endPage   Int?
+  date      DateTime @default(now())
+  duration  Int?
+}
+
+model Goal {
+  id                   String   @id @default(cuid())
+  userId               String
+  user                 User     @relation(fields: [userId], references: [id])
+  type                 String
+  targetAmount         Int?
+  deadline             DateTime?
+  status               String   @default("ACTIVE")
+  lastNotificationSent DateTime?
+  notificationCount    Int      @default(0)
+  createdAt            DateTime @default(now())
+
+  @@check(
+    name: "daily_page_max_20",
+    expression: "(type != 'DAILY_PAGE') OR (targetAmount BETWEEN 1 AND 20)"
+  )
+}
+
