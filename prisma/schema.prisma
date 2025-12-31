@@ -4,7 +4,7 @@
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+  url      = "file:dev.db"
 }
 
 model User {
@@ -43,9 +43,5 @@ model Goal {
   notificationCount    Int      @default(0)
   createdAt            DateTime @default(now())
 
-  @@check(
-    name: "daily_page_max_20",
-    expression: "(type != 'DAILY_PAGE') OR (targetAmount BETWEEN 1 AND 20)"
-  )
+  @@check(name: "daily_page_max_20", expression: "(type != 'DAILY_PAGE') OR (targetAmount BETWEEN 1 AND 20)")
 }
-

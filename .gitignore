@@ -40,4 +40,16 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# database files
+*.db
+*.db-shm
+*.db-wal
+
+# debug and test files
+prisma_debug.log
+fix_env.js
+test_db_connect.js
+push_db.js
+verify_env.js
+
 /src/generated/prisma

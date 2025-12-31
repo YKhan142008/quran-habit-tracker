@@ -4,7 +4,7 @@ import { useState } from 'react';
 import SessionLogger from '@/components/SessionLogger';
 import GoalSetter from '@/components/GoalSetter';
 import ProgressChart from '@/components/ProgressChart';
-import IslamicCalendar from '@/components/IslamicCalendar';
+import QuranProgressBar from '@/components/QuranProgressBar';
 
 export default function Home() {
   const [activeGoal, setActiveGoal] = useState<any>(null);
@@ -24,7 +24,7 @@ export default function Home() {
 
         <div className="flex flex-col gap-8">
           <GoalSetter onGoalSelect={setActiveGoal} activeGoal={activeGoal} />
-          <IslamicCalendar />
+          <QuranProgressBar />
         </div>
       </div>
     </main>

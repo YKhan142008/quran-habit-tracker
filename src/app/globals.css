@@ -230,6 +230,14 @@ select.input {
   background-color: var(--primary);
 }
 
+.bg-orange-500 {
+  background-color: #f97316;
+}
+
+.text-orange-600 {
+  color: #ea580c;
+}
+
 .grid {
   display: grid;
 }
@@ -250,6 +258,10 @@ select.input {
   .grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+
+  .md\:col-span-2 {
+    grid-column: span 2 / span 2;
+  }
 }
 
 /* Prevent text selection on buttons/tags */
@@ -258,4 +270,67 @@ select.input {
   -webkit-user-select: none !important;
   -moz-user-select: none !important;
   -ms-user-select: none !important;
+}
+
+/* Missing utilities */
+.w-full {
+  width: 100%;
+}
+
+.h-4 {
+  height: 1rem;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.bg-gray-200 {
+  background-color: #e5e7eb;
+}
+
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.duration-1000 {
+  transition-duration: 1000ms;
+}
+
+.ease-out {
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+.text-sm {
+  font-size: 0.875rem;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.items-end {
+  align-items: flex-end;
+}
+
+.h-6 {
+  height: 1.5rem;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.text-xs {
+  font-size: 0.75rem;
 }

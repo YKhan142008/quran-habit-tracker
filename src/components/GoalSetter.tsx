@@ -36,6 +36,15 @@ export default function GoalSetter({ onGoalSelect, activeGoal }: GoalSetterProps
     fetchGoals();
   }, []);
 
+  // Open calendar automatically when selecting "Finish Quran by Date"
+  useEffect(() => {
+    if (type === 'DEADLINE_QURAN') {
+      setShowCalendar(true);
+    } else {
+      setShowCalendar(false);
+    }
+  }, [type]);
+
   const validateEmail = async () => {
     if (!userEmail || !emailNotificationsEnabled) {
       setEmailValid(null);
@@ -240,6 +249,26 @@ export default function GoalSetter({ onGoalSelect, activeGoal }: GoalSetterProps
           </div>
         )}
 
+        {type === 'DEADLINE_QURAN' && (
+          <div>
+            <label className="label">Target Date</label>
+            <button
+              onClick={() => setShowCalendar(true)}
+              className="input w-full text-left flex items-center justify-between cursor-pointer hover:border-primary transition-colors"
+            >
+              <span className={targetDate ? 'text-gray-900' : 'text-gray-500'}>
+                {targetDate ? targetDate.toLocaleDateString() : 'Select a date...'}
+              </span>
+              <span>📅</span>
+            </button>
+            {targetDate && (
+              <p className="text-xs text-gray-500 mt-1">
+                Goal: Finish Quran by {targetDate.toLocaleDateString()}
+              </p>
+            )}
+          </div>
+        )}
+
         <button onClick={handleSetGoal} className="btn btn-outline">
           Save Goal
         </button>
@@ -252,8 +281,14 @@ export default function GoalSetter({ onGoalSelect, activeGoal }: GoalSetterProps
       </div>
 
       {showCalendar && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white p-6 rounded-2xl max-w-md w-full relative">
+        <div
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+          onClick={() => setShowCalendar(false)}
+        >
+          <div
+            className="bg-white p-6 rounded-2xl max-w-md w-full relative"
+            onClick={(e) => e.stopPropagation()}
+          >
             <button
               onClick={() => setShowCalendar(false)}
               className="absolute top-4 right-4"
@@ -264,7 +299,7 @@ export default function GoalSetter({ onGoalSelect, activeGoal }: GoalSetterProps
               selectedDate={targetDate}
               onDateSelect={(date) => {
                 setTargetDate(date);
-                setShowCalendar(false);
+                // Keep calendar open for manual review/closing
               }}
             />
           </div>
